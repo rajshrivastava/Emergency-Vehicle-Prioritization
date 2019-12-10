@@ -68,13 +68,14 @@ class Simulation:
         if speedup_car:
             self.cars[i].max_acceleration = 8.0
             self.cars[i].max_velocity = 8.0            
-            self.cars[i].counter = 30
+            self.cars[i].counter = 32
         
     def random_lane_generator(self):
         #generate random lane from 1 to 4:
         return random.randint(1,4)
         
     def run(self):
+        print('Loading simulation...')
         current_dir = os.path.dirname(os.path.abspath(__file__))
         cars_list = ["blueAquaCar.png", "blueCar.png", "greenCar.png", \
                     "orangeCar.png", "pinkCar.png", "redBlueCar.png",\
@@ -103,45 +104,36 @@ class Simulation:
         ambulance_image = pygame.transform.scale(ambulance_image, (42,24))
         
         self.lanes = {1:9, 2:10, 3:11.3, 4:12.4}
+        print('Initializing cars...')
         #Initializations at random locations
         #Initiaization of cars: (x, y, angle=0.0, length=4, max_steering=30, max_acceleration=5.0)
-        self.cars.append(Car(-58, self.lanes[1]))                #lane-1,  towards right
-        self.cars.append(Car(-28, self.lanes[1]))                
-        self.cars.append(Car(-18, self.lanes[1]))
-        self.cars.append(Car(-6, self.lanes[1]))
-        self.cars.append(Car(7, self.lanes[1]))
+        self.cars.append(Car(6, self.lanes[1]))               #lane-1,  towards right
         self.cars.append(Car(15, self.lanes[1]))
+        self.cars.append(Car(25, self.lanes[1]))
+        self.cars.append(Car(32, self.lanes[1]))
+        self.cars.append(Car(38, self.lanes[1]))
         
-        self.cars.append(Car(-49,self.lanes[2]))                 #lane-2, towards right
-        self.cars.append(Car(-31,self.lanes[2]))
-        self.cars.append(Car(-21,self.lanes[2]))
-        self.cars.append(Car(-14,self.lanes[2]))
-        #self.cars.append(Car(-7,self.lanes[2]))
-        self.cars.append(Car(2,self.lanes[2]))
-        #self.cars.append(Car(13,self.lanes[2]))
-        self.cars.append(Car(22,self.lanes[2]))
+        self.cars.append(Car(1,self.lanes[2]))               #lane-2, towards right
+        self.cars.append(Car(9,self.lanes[2]))
+        self.cars.append(Car(19,self.lanes[2]))
+        self.cars.append(Car(41,self.lanes[2]))
         
-        self.cars.append(Car(79,self.lanes[3], 180))          #lane-3, towards left
-        self.cars.append(Car(63,self.lanes[3], 180))
-        self.cars.append(Car(52,self.lanes[3], 180))
-        self.cars.append(Car(40,self.lanes[3], 180))
-        #self.cars.append(Car(40,self.lanes[3], 180))
-        self.cars.append(Car(32,self.lanes[3], 180))
-        self.cars.append(Car(25,self.lanes[3], 180))
+        self.cars.append(Car(8,self.lanes[3], 180))          #lane-3, towards left
+        self.cars.append(Car(13,self.lanes[3], 180))
+        self.cars.append(Car(29,self.lanes[3], 180))
+        self.cars.append(Car(39,self.lanes[3], 180))
         
-        self.cars.append(Car(94,self.lanes[4], 180))          #lane-4, towards left
-        self.cars.append(Car(87,self.lanes[4], 180))
-        #self.cars.append(Car(81,self.lanes[4], 180))
-        self.cars.append(Car(71,self.lanes[4], 180))
-        self.cars.append(Car(55,self.lanes[4], 180))
-        self.cars.append(Car(48,self.lanes[4], 180))
-        self.cars.append(Car(27,self.lanes[4], 180))
+        self.cars.append(Car(3,self.lanes[4], 180))          #lane-4, towards left
+        self.cars.append(Car(17,self.lanes[4], 180))
+        self.cars.append(Car(23,self.lanes[4], 180))
+        self.cars.append(Car(34,self.lanes[4], 180))
         
         no_of_cars = len(self.cars)
         
+        print('Initializing emergency vehicles on random lanes...')
         #initializing ambulance car
-        #random_ambulance_lane = self.random_lane_generator()
-        random_ambulance_lane = 1
+        random_ambulance_lane = self.random_lane_generator()
+        #random_ambulance_lane = 1
         if random_ambulance_lane == 1:
             random_x = random.randint(-20, -10)
             self.ambulance = Car(random_x, self.lanes[1])
@@ -162,8 +154,8 @@ class Simulation:
         self.ambulance.max_velocity = 6.0
         
         #initializing police car
-        #random_police_lane = self.random_lane_generator()
-        random_police_lane = 2
+        random_police_lane = self.random_lane_generator()
+        #random_police_lane = 3
         if random_police_lane == 1:
             random_x = random.randint(-40, -25)
             self.police = Car(random_x, self.lanes[1])
@@ -191,6 +183,7 @@ class Simulation:
         back = Background('background_image.png', [0,0])
         
         #iterator = 1
+        print('Entering traffic...')
         while not self.exit:
             
             dt = self.clock.get_time() / 1000
@@ -223,7 +216,7 @@ class Simulation:
                     self.cars[i].max_acceleration = 4.0
                     self.cars[i].max_velocity = 3.0 
                     self.cars[i].steering = 0
-                    print(self.cars[i].angle)
+                    #print(self.cars[i].angle)
                     if self.cars[i].angle >= -90 and self.cars[i].angle <90:
                         self.cars[i].angle = 0
                     else:
@@ -237,7 +230,7 @@ class Simulation:
                 self.update_lane(i)
                 
                 
-            print(self.police.position)
+            #print(self.police.position)
 
             
             # Drawing
