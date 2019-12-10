@@ -7,7 +7,7 @@ from car import Car
 from background import Background
 
 class Simulation:
-    def __init__(self):
+    def __init__(self, counter, safe_distance):
         pygame.init()
         pygame.display.set_caption("Traffic simulation")
         width = 1280
@@ -16,6 +16,9 @@ class Simulation:
         self.clock = pygame.time.Clock()
         self.ticks = 60
         self.exit = False
+        self.set_counter = counter
+        self.safe_distance = safe_distance
+        self.lane_error_margin = 0.5 
         
     
     def update_lane(self, car_index):
@@ -174,8 +177,7 @@ class Simulation:
     
         self.police.max_acceleration = 7.0
         self.police.max_velocity = 6.0
-        self.safe_distance = 4.5
-        self.lane_error_margin = 0.5    
+           
         ppu = 32
         
         rotated = [None]*no_of_cars
@@ -268,5 +270,7 @@ class Simulation:
 
 
 if __name__ == '__main__':
-    game = Simulation()
+    counter = 32        #may be required to be tuned for accurate lane-change visualization
+    safe_distance = 4.5   
+    game = Simulation(counter, safe_distance)
     game.run()
