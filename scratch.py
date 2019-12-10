@@ -71,20 +71,20 @@ class Game:
         ambulance_x, ambulance_y = self.ambulance.position
         police_x, police_y = self.police.position
         speedup_car = False
-        if abs(car_y - police_y) < 0.6:
-            if car_y == self.lanes[1] and car_x > police_x and car_x - police_x < self.safe_distance:
+        if abs(car_y - police_y) < self.lane_error_margin:
+            if abs(car_y - self.lanes[1])< self.lane_error_margin and car_x > police_x and car_x - police_x < self.safe_distance:
                 self.cars[i].steering = -30
                 speedup_car = True
                     
-            elif car_y == self.lanes[2] and car_x > police_x and car_x - police_x < self.safe_distance:
+            elif abs(car_y - self.lanes[2]) < self.lane_error_margin and car_x > police_x and car_x - police_x < self.safe_distance:
                 self.cars[i].steering = 30
                 speedup_car = True
                 
-            elif car_y == self.lanes[3] and car_x < police_x and police_x - car_x < self.safe_distance:
+            elif abs(car_y - self.lanes[3])< self.lane_error_margin and car_x < police_x and police_x - car_x < self.safe_distance:
                 self.cars[i].steering = 30
                 speedup_car = True
                 
-            elif car_y == self.lanes[4] and car_x < police_x and police_x - car_x < self.safe_distance:
+            elif abs(car_y - self.lanes[4])< self.lane_error_margin and car_x < police_x and police_x - car_x < self.safe_distance:
                 self.cars[i].steering = -30
                 speedup_car = True
             else:
@@ -92,20 +92,20 @@ class Game:
             
             
             
-        if abs(car_y  - ambulance_y) < 0.6:
-            if car_y == self.lanes[1] and car_x > ambulance_x and car_x - ambulance_x < self.safe_distance:
+        if abs(car_y  - ambulance_y) < self.lane_error_margin:
+            if abs(car_y - self.lanes[1]) < self.lane_error_margin and car_x > ambulance_x and car_x - ambulance_x < self.safe_distance:
                 self.cars[i].steering = -30
                 speedup_car = True
                     
-            elif car_y == self.lanes[2] and car_x > ambulance_x and car_x - ambulance_x < self.safe_distance:
+            elif abs(car_y - self.lanes[2]) < self.lane_error_margin and car_x > ambulance_x and car_x - ambulance_x < self.safe_distance:
                 self.cars[i].steering = 30
                 speedup_car = True
             
-            elif car_y == self.lanes[3] and car_x < ambulance_x and ambulance_x - car_x < self.safe_distance:
+            elif abs(car_y - self.lanes[3]) < self.lane_error_margin and car_x < ambulance_x and ambulance_x - car_x < self.safe_distance:
                 self.cars[i].steering = 30
                 speedup_car = True
                     
-            elif car_y == self.lanes[4] and car_x < ambulance_x and ambulance_x - car_x < self.safe_distance:
+            elif abs(car_y - self.lanes[4]) < self.lane_error_margin and car_x < ambulance_x and ambulance_x - car_x < self.safe_distance:
                 self.cars[i].steering = -30
                 speedup_car = True
             else:
@@ -114,7 +114,7 @@ class Game:
         if speedup_car:
             self.cars[i].max_acceleration = 8.0
             self.cars[i].max_velocity = 8.0            
-            self.cars[i].counter = 33
+            self.cars[i].counter = 30
         
     def random_lane_generator(self):
         #generate random lane from 1 to 4:
@@ -151,37 +151,37 @@ class Game:
         self.lanes = {1:9, 2:10, 3:11.3, 4:12.4}
         #Initializations at random locations
         #Initiaization of cars: (x, y, angle=0.0, length=4, max_steering=30, max_acceleration=5.0)
-        self.cars.append(Car(-10, self.lanes[1]))                #lane-1,  towards right
-        self.cars.append(Car(-18, self.lanes[1]))                
-        self.cars.append(Car(-8, self.lanes[1]))
-#        self.cars.append(Car(12, self.lanes[1]))
-#        self.cars.append(Car(14, self.lanes[1]))
-#        self.cars.append(Car(5, self.lanes[1]))
-#        
-#        self.cars.append(Car(-12,self.lanes[2]))                 #lane-2, towards right
-#        self.cars.append(Car(-19,self.lanes[2]))
-#        self.cars.append(Car(-7,self.lanes[2]))
-#        self.cars.append(Car(-4,self.lanes[2]))
-        self.cars.append(Car(6,self.lanes[2]))
-        self.cars.append(Car(8,self.lanes[2]))
-        self.cars.append(Car(13,self.lanes[2]))
-        self.cars.append(Car(18,self.lanes[2]))
+        self.cars.append(Car(-58, self.lanes[1]))                #lane-1,  towards right
+        self.cars.append(Car(-28, self.lanes[1]))                
+        self.cars.append(Car(-18, self.lanes[1]))
+        self.cars.append(Car(-6, self.lanes[1]))
+        self.cars.append(Car(7, self.lanes[1]))
+        self.cars.append(Car(15, self.lanes[1]))
         
-        self.cars.append(Car(32,self.lanes[3], 180))          #lane-3, towards left
-        self.cars.append(Car(35,self.lanes[3], 180))
-        self.cars.append(Car(42,self.lanes[3], 180))
-        self.cars.append(Car(47,self.lanes[3], 180))
-        self.cars.append(Car(50,self.lanes[3], 180))
-#        self.cars.append(Car(60,self.lanes[3], 180))
-#        self.cars.append(Car(64,self.lanes[3], 180))
-#        
-#        self.cars.append(Car(22,self.lanes[4], 180))          #lane-4, towards left
-#        self.cars.append(Car(26,self.lanes[4], 180))
-#        self.cars.append(Car(30,self.lanes[4], 180))
-        self.cars.append(Car(37,self.lanes[4], 180))
-        self.cars.append(Car(41,self.lanes[4], 180))
-        self.cars.append(Car(43,self.lanes[4], 180))
-        self.cars.append(Car(49,self.lanes[4], 180))
+        self.cars.append(Car(-49,self.lanes[2]))                 #lane-2, towards right
+        self.cars.append(Car(-31,self.lanes[2]))
+        self.cars.append(Car(-21,self.lanes[2]))
+        self.cars.append(Car(-14,self.lanes[2]))
+        #self.cars.append(Car(-7,self.lanes[2]))
+        self.cars.append(Car(2,self.lanes[2]))
+        #self.cars.append(Car(13,self.lanes[2]))
+        self.cars.append(Car(22,self.lanes[2]))
+        
+        self.cars.append(Car(79,self.lanes[3], 180))          #lane-3, towards left
+        self.cars.append(Car(63,self.lanes[3], 180))
+        self.cars.append(Car(52,self.lanes[3], 180))
+        self.cars.append(Car(40,self.lanes[3], 180))
+        #self.cars.append(Car(40,self.lanes[3], 180))
+        self.cars.append(Car(32,self.lanes[3], 180))
+        self.cars.append(Car(25,self.lanes[3], 180))
+        
+        self.cars.append(Car(94,self.lanes[4], 180))          #lane-4, towards left
+        self.cars.append(Car(87,self.lanes[4], 180))
+        #self.cars.append(Car(81,self.lanes[4], 180))
+        self.cars.append(Car(71,self.lanes[4], 180))
+        self.cars.append(Car(55,self.lanes[4], 180))
+        self.cars.append(Car(48,self.lanes[4], 180))
+        self.cars.append(Car(27,self.lanes[4], 180))
         
         no_of_cars = len(self.cars)
         
@@ -189,19 +189,19 @@ class Game:
         #random_ambulance_lane = self.random_lane_generator()
         random_ambulance_lane = 1
         if random_ambulance_lane == 1:
-            random_x = random.randint(-10, -1)
-            self.ambulance = Car(random_x, 9)
+            random_x = random.randint(-20, -10)
+            self.ambulance = Car(random_x, self.lanes[1])
             
         elif random_ambulance_lane == 2:   
-            random_x = random.randint(-10, -1)
-            self.ambulance = Car(random_x, 10)
+            random_x = random.randint(-20, -10)
+            self.ambulance = Car(random_x, self.lanes[2])
         
         elif random_ambulance_lane == 3:   
-            random_x = random.randint(-10, -1)
+            random_x = random.randint(55, 70)
             self.ambulance = Car(random_x, self.lanes[3], 180)
             
         else:   
-            random_x = random.randint(-10, -1)
+            random_x = random.randint(55, 70)
             self.ambulance = Car(random_x, self.lanes[4], 180)
             
         self.ambulance.max_acceleration = 7.0
@@ -209,27 +209,27 @@ class Game:
         
         #initializing police car
         #random_police_lane = self.random_lane_generator()
-        random_police_lane =2 
-        
+        random_police_lane = 2
         if random_police_lane == 1:
-            random_x = random.randint(-10, -1)
+            random_x = random.randint(-40, -25)
             self.police = Car(random_x, self.lanes[1])
             
         elif random_police_lane == 2:   
-            random_x = random.randint(-10, -1)
+            random_x = random.randint(-40, -25)
             self.police = Car(random_x, self.lanes[2])
         
         elif random_police_lane == 3:   
-            random_x = random.randint(50, 90)
+            random_x = random.randint(70, 90)
             self.police = Car(random_x, self.lanes[3], 180)
             
         else:   
-            random_x = random.randint(70, 100)
+            random_x = random.randint(70, 90)
             self.police = Car(random_x, self.lanes[4], 180)
     
         self.police.max_acceleration = 7.0
         self.police.max_velocity = 6.0
-        self.safe_distance = 4
+        self.safe_distance = 4.5
+        self.lane_error_margin = 0.5    
         ppu = 32
         
         rotated = [None]*no_of_cars
@@ -270,7 +270,7 @@ class Game:
                     self.cars[i].max_velocity = 3.0 
                     self.cars[i].steering = 0
                     print(self.cars[i].angle)
-                    if self.cars[i].angle <90:
+                    if self.cars[i].angle >= -90 and self.cars[i].angle <90:
                         self.cars[i].angle = 0
                     else:
                         self.cars[i].angle = 180
