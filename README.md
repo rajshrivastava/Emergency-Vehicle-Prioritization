@@ -1,5 +1,14 @@
 # Simulation of Emergency Vehicle Prioritization in an Autonomous Traffic Environment
 
+- [Simulation of Emergency Vehicle Prioritization in an Autonomous Traffic Environment](#simulation-of-emergency-vehicle-prioritization-in-an-autonomous-traffic-environment)
+  * [Overview](#overview)
+  * [How to run](#how-to-run)
+  * [Vehiclular motion](#vehiclular-motion)
+  * [Simulation environment](#simulation-environment)
+  * [Evaluation and results](#evaluation-and-results)
+  * [Conclusion and future scope](#conclusion-and-future-scope)
+
+
 ## Overview
 This project presents a simulation for prioritizing emergency vehicles in traffic where all vehicles are autonomously driven. Multiple approaches have been explored to autonomously detect approaching Emergency Vehicles in traffic in non-autonomous traffic environments. Some approaches use object detection to detect approaching Emergency Vehicles; Others use audio recognition. Furthermore, other approaches suggest combining both of the above to get better results and there are approaches which explain about connecting every vehicle to a network which facilitates communication between every other car for effective traffic flow. We take into account the different considerations in devising prioritization strategies, and present few such strategies in this work. The physics of kinematic motion have been attempted to be implemented to imitate real-life scenarios.
 
